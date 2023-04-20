@@ -2,10 +2,13 @@
     import firebase from 'firebase/compat/app';
     import 'firebase/compat/auth';
     import 'firebase/compat/firestore';
+    import {  getAuth} from "firebase/auth";
+    import { getFirestore } from "firebase/firestore";
+
     
     // Import the functions you need from the SDKs you need
-    import { initializeApp } from "firebase/app";
-    import { getAnalytics } from "firebase/analytics";
+    // import { initializeApp } from "firebase/app";
+    // import { getAnalytics } from "firebase/analytics";
     // TODO: Add SDKs for Firebase products that you want to use
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
@@ -18,5 +21,7 @@
       measurementId: "G-C9F2EMKD41"
     };    
     // Initialize Firebase
-export default firebase.initializeApp(firebaseConfig);
+// export default firebase.initializeApp(firebaseConfig);
+export const db = getFirestore(firebase.initializeApp(firebaseConfig))
     // const analytics = getAnalytics(app);
+   export const auth = getAuth();
