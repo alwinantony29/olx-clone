@@ -31,7 +31,7 @@ function Posts() {
         <div className="cards">
          {products.map(product=>{
           return  <div
-            className="card" 
+            className="card"  
           >
             <div className="favorite">
               <Heart></Heart>
