@@ -3,9 +3,13 @@ import {db} from '../../firebase/config'
 import Heart from '../../assets/Heart';
 import './Post.css';
 import { collection,getDocs } from "firebase/firestore";
+import { postContext } from '../../store/PostContext';
+import { useNavigate } from 'react-router-dom';
 
 function Posts() {
   const [products, setProducts] = useState([])
+  const {setPostDetails }=useContext(postContext)
+  const navigate=useNavigate()
   useEffect(()=>{
      getDocs(collection(db,'products')).then((querysnapshot)=>{
       
@@ -17,9 +21,10 @@ function Posts() {
         }
       })
       setProducts(allPost)
+      // console.log(allPost);
      })
   
-  })
+  },[])
 
   return (
     <div className="postParentDiv">
@@ -30,15 +35,19 @@ function Posts() {
         </div>
         <div className="cards">
          {products.map(product=>{
-          return  <div
-            className="card"  
+          return  (<div
+            className="card" 
+            onClick={()=>{
+              setPostDetails(product)
+              navigate('/view')
+            }} 
           >
             <div className="favorite">
               <Heart></Heart>
             </div>
             <div className="image">
-              <img src={product.url} alt="" />
-            </div>
+              <img src={product.downloadURL} alt='product image' />
+            </div> 
             <div className="content">
               <p className="rate">&#x20B9; {product.price}</p>
               <span className="kilometer">{product.category}</span>
@@ -47,7 +56,7 @@ function Posts() {
             <div className="date">
               <span>{product.createdAt}</span>
             </div>
-          </div>})}
+          </div>)})}
         </div>
       </div>
       <div className="recommendations">
